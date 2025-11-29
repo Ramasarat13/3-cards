@@ -159,9 +159,13 @@ export class UI {
         // Update Scores
         document.getElementById('comp-score').textContent = game.players[1].score;
         document.getElementById('player-score').textContent = game.players[0].score;
-        // Debug log
-        // Debug log
-        this.log('Hand: ' + game.players[0].hand.length);
+
+        // Turn Indicator
+        if (game.currentPlayerIndex === 0) {
+            this.log("Your Turn");
+        } else {
+            this.log("Computer's Turn");
+        }
         // document.getElementById('round-num').textContent = game.round; // Removed as element doesn't exist
 
         // Update Controls
