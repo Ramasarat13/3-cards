@@ -251,6 +251,10 @@ export class UI {
                 const isCurrentlyFaceDown = cardEl.classList.contains('card-back');
                 if (isCurrentlyFaceDown && !shouldBeFaceDown) {
                     this.flipCard(cardEl, card);
+                } else if (!isCurrentlyFaceDown && shouldBeFaceDown) {
+                    // Force face down if it should be hidden
+                    cardEl.classList.add('card-back');
+                    cardEl.innerHTML = '<img src="https://deckofcardsapi.com/static/img/back.png" class="card-image" alt="Back">';
                 }
 
                 // Update selection state only
