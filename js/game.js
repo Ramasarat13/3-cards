@@ -89,11 +89,23 @@ export class Game {
         // "On a players turn, they have to first discard a card... then he show draw a card"
         // YES. Discard first.
 
-        const discardIndex = computer.decideDiscard();
-        const discardedCard = computer.removeCard(discardIndex);
-        this.discardPile.push(discardedCard);
+        const discardIndices = computer.decideDiscard();
+
+        // Sort descending to remove correctly
+        discardIndices.sort((a, b) => b - a);
+
+        const discardedCards = [];
+        discardIndices.forEach(index => {
+            discardedCards.push(computer.removeCard(index));
+        });
+
+        discardedCards.reverse().forEach(card => this.discardPile.push(card));
+
         this.ui.sound.playCardFlip();
-        this.ui.log(`Computer discarded ${discardedCard.rank}`);
+
+        const cardNames = discardedCards.map(c => c.rank).join(', ');
+        this.ui.log(`Computer discarded ${discardedCards.length} card(s): ${cardNames}`);
+
         this.updateUI();
 
         await new Promise(r => setTimeout(r, 1000)); // Delay for effect

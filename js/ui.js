@@ -172,16 +172,13 @@ export class UI {
         const waitingForDraw = !!this.drawCallback;
         // const canShow = game.turnsPlayed >= 2; // Rule enforced in click handler now
 
+        showBtn.disabled = false; // Always enabled visually
+
         if (isPlayerTurn && !waitingForDraw) {
-            showBtn.disabled = false;
-            // Discard enabled logic handled by selection validation below
+            // Discard enabled logic handled below
         } else {
-            showBtn.disabled = true;
             discardBtn.disabled = true;
         }
-
-        // Debug: Force enabled if player turn and not waiting for draw, just to be sure
-        if (isPlayerTurn && !waitingForDraw) showBtn.disabled = false;
 
         // Validate Discard Selection
         if (isPlayerTurn && !waitingForDraw) {
